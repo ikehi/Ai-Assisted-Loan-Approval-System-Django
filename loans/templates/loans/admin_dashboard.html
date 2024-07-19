@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Loan Amount</th>
+                <th>Status</th>
+                <th>Application Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for application in applications %}
+            <tr>
+                <td>{{ application.user.username }}</td>
+                <td>{{ application.loan_amount }}</td>
+                <td>{{ application.get_status_display }}</td>
+                <td>{{ application.application_date }}</td>
+                <td><a href="{% url 'view_application' application.id %}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
