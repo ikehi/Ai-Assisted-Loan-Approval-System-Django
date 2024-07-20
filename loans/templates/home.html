@@ -2,9 +2,50 @@
 <html>
 <head>
     <title>Loan Management System</title>
+   
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        a {
+            color: gray;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            border: 2px solid gray;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a:hover {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+
+       
 </head>
 <body>
-    <h1>Welcome to the Loan Management System</h1>
-    <p><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
+     <p style="padding-left: 100px;
+     margin: 70px 0;
+     font-family: Calisto MT;
+     color:brown;
+     font-size:90px;"><b> Loan Management <br> System</b></p>
+
+
+    <p style="padding-left: 150px;
+    margin: 100px 0;
+    font-family: Calisto MT;
+    color:brown;
+    font-size:30px;"><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
 </body>
 </html>
