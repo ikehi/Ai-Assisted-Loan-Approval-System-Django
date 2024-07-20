@@ -4,32 +4,65 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
 class ApplicationForm(forms.ModelForm):
-    EMPLOYMENT_STATUS_CHOICES = [
-        (0, 0),
-        (1, 1),
+    EDUCATION_CHOICES = [
+        (0, '0'),
+        (1, '1'),
     ]
+    
+    EMPLOYMENT_STATUS_CHOICES = [
+        (0, '0'),
+        (1, '1'),
+    ]
+
+    education = forms.ChoiceField(
+        choices=EDUCATION_CHOICES,
+        help_text="0 for Graduate, 1 for Not Graduate",
+        widget=forms.Select
+    )
 
     employment_status = forms.ChoiceField(
         choices=EMPLOYMENT_STATUS_CHOICES,
-        help_text="0 is for unemployed and 1 is for employed",
+        help_text="0 for Not Employed, 1 for Employed",
         widget=forms.Select
     )
+    
+    name = forms.CharField(
+        max_length=100,
+        help_text="Enter your full name",
+    )
+
+    contact_no = forms.CharField(
+        max_length=15,
+        help_text="Enter your contact number",
+    )
+
+    city = forms.CharField(
+        max_length=100,
+        help_text="Enter the city where you reside",
+    )
+    
+    country = forms.CharField(
+        max_length=100,
+        help_text="Enter your country",
+    )
+
     class Meta:
         model = Application
         fields = [
-            'passport_photo','name', 'age', 'contact_no', 'city', 'cibil_score', 'income',
-            'employment_status', 'loan_term', 'loan_amount',
-            'residential_assets', 'commercial_assets'
+            'passport_photo', 'name', 'contact_no', 'city', 'country', 'no_of_dependents', 
+            'education', 'employment_status', 'income_annum', 'loan_amount', 'loan_term', 
+            'cibil_score', 'residential_assets_value', 'commercial_assets_value', 
+            'luxury_assets_value', 'bank_asset_value'
         ]
-
+        widgets = {
+            'self_employed': forms.CheckboxInput,
+        }
 
 class StatusUpdateForm(forms.ModelForm):
     class Meta:
         model = Application
         fields = ['status']
-        widgets = {
-            'status': forms.Select(choices=Application.STATUS_CHOICES)
-        }
+        
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

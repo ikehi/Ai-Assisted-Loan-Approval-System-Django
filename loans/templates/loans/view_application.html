@@ -83,10 +83,6 @@
             <p>{{ application.name }}</p>
         </div>
         <div class="field">
-            <label for="age">Age:</label>
-            <p>{{ application.age }}</p>
-        </div>
-        <div class="field">
             <label for="contact_no">Contact No:</label>
             <p>{{ application.contact_no }}</p>
         </div>
@@ -95,16 +91,24 @@
             <p>{{ application.city }}</p>
         </div>
         <div class="field">
-            <label for="cibil_score">CIBIL Score:</label>
-            <p>{{ application.cibil_score }}</p>
+            <label for="country">Country:</label>
+            <p>{{ application.country }}</p>
         </div>
         <div class="field">
-            <label for="income">Income:</label>
-            <p>{{ application.income }}</p>
+            <label for="no_of_dependents">Number of Dependents:</label>
+            <p>{{ application.no_of_dependents }}</p>
+        </div>
+        <div class="field">
+            <label for="education">Education:</label>
+            <p>{{ application.get_education_display }}</p>
         </div>
         <div class="field">
             <label for="employment_status">Employment Status:</label>
-            <p>{{ application.employment_status }}</p>
+            <p>{{ application.get_employment_status_display }}</p>
+        </div>
+        <div class="field">
+            <label for="income_annum">Annual Income:</label>
+            <p>{{ application.income_annum }}</p>
         </div>
         <div class="field">
             <label for="loan_term">Loan Term:</label>
@@ -115,12 +119,20 @@
             <p>{{ application.loan_amount }}</p>
         </div>
         <div class="field">
-            <label for="residential_assets">Residential Assets:</label>
-            <p>{{ application.residential_assets }}</p>
+            <label for="residential_assets_value">Residential Assets Value:</label>
+            <p>{{ application.residential_assets_value }}</p>
         </div>
         <div class="field">
-            <label for="commercial_assets">Commercial Assets:</label>
-            <p>{{ application.commercial_assets }}</p>
+            <label for="commercial_assets_value">Commercial Assets Value:</label>
+            <p>{{ application.commercial_assets_value }}</p>
+        </div>
+        <div class="field">
+            <label for="luxury_assets_value">Luxury Assets Value:</label>
+            <p>{{ application.luxury_assets_value }}</p>
+        </div>
+        <div class="field">
+            <label for="bank_asset_value">Bank Asset Value:</label>
+            <p>{{ application.bank_asset_value }}</p>
         </div>
         <div class="field">
             <label for="status">Status:</label>

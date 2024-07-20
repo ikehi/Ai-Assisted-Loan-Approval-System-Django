@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About Us</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External CSS Links -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
+
+    <style>
+
+
+
+h3{
+  color: #000;
+}
+        /* Variables */
+        :root {
+            --border-radius: 10px;
+            --spacer: 1rem;
+            --primary: #C4151C;
+            --text: #fff;
+            --link-height: calc(var(--spacer) * 3.5);
+            --timing: 250ms;
+            --transition: var(--timing) ease all;
+            --link-width: 10rem;
+        }
+
+        body {
+            background: #000 url(https://unsplash.it/1600/1000/?random);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 0 calc(var(--spacer) * 2);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
+            height: 6rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem; /* Increased gap for distance between items */
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .navbar__menu {
+            position: relative;
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar__link {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            align-items: center;
+            justify-content: center;
+            height: var(--link-height);
+            width: var(--link-width);
+            color: var(--text);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 500ms ease all;
+        }
+
+        .navbar__link svg {
+            transition: 500ms ease all;
+        }
+
+        .navbar__link:hover svg {
+            stroke: var(--primary);
+        }
+
+        .navbar__item {
+            margin-left: 10px;
+        }
+
+        /* Styles for the About Us Page */
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            margin-top: 130px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        h2 {
+            margin-top: 40px;
+        }
+
+        .team {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .team-member {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .team-member img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+        }
+
+        .mission, .values {
+            margin: 20px 0;
+            color: #000;
+        }
+
+        .mission ul, .values ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .mission ul li, .values ul li {
+            background: #e0e0e0;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: var(--border-radius);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header__logo">
+            <strong>LOGO</strong>
+        </div>
+        <nav class="navbar">
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="{% url 'apply_loan' %}" class="navbar__link"><i data-feather="file-text"></i><span>Apply for Loan</span> </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="{% url 'customer_dashboard' %}" class="navbar__link"><i data-feather="list"></i><span>Applications</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="{% url 'logout' %}" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>
+                </li>
+                <li class="navbar__item">
+                    <a href="https://github.com/HARSHGit45/Ai-Assisted-Loan-Approval-System-Django" class="navbar__link"><i data-feather="github"></i><span>GitHub</span></a>
+                </li>
+            
+                <li class="navbar__item">
+                    <a href="{% url 'cibil_calculator' %}" class="navbar__link"><i data-feather="plus"></i><span>CIBIL Calculator</span></a>
+                </li>
+
+                <li class="navbar__item">
+                  <a href="{% url 'about_us' %}" class="navbar__link"><i data-feather="info"></i><span>About Us</span></a>
+              </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="container" id="about">
+        <h1>About Us</h1>
+        <section class="team">
+            <h2>Meet the Team</h2>
+            <div class="team">
+              {% load static %}
+
+                <div class="team-member">
+
+                    <img src="{% static 'images/g.png' %}" alt="Gauri Barge">
+                    <h3>Gauri Barge</h3>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'images/p.png' %}" alt="Pranjali Kulkarni">
+                    <h3>Pranjali Kulkarni</h3>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'images/h.png' %}" alt="Harshal Mali">
+                    <h3>Harshal Mali</h3>
+                </div>
+                <div class="team-member">
+                    <img src="{% static 'images/m.png' %}" alt="Manas Gaikwad">
+                    <h3>Manas Gaikwad</h3>
+                </div>
+            </div>
+        </section>
+        <section class="mission">
+            <h2>Our Mission</h2>
+            <p><b>Our mission is to create a seamless, efficient, and fair loan management system that benefits all stakeholders involved. By harnessing advanced machine learning algorithms and cutting-edge technologies, we aim to:</b></p>
+            <ul>
+                <li>Empower Financial Institutions: We provide financial institutions with powerful tools to automate and expedite the loan approval process, ensuring accurate risk assessment and optimal interest rate determination. Our platform helps institutions manage loan applications efficiently, from submission to approval, while maintaining a transparent and organized workflow.</li>
+                <li>Support Loan Applicants: We strive to offer applicants a user-friendly and intuitive experience, ensuring quick and fair loan approval decisions. Our system uses data-driven insights to provide transparent criteria for loan assessments and interest rate settings, enabling applicants to understand the basis of their loan outcomes and benefit from fair financial terms.</li>
+            </ul>
+        </section>
+        <section class="values">
+            <h2>Our Values</h2>
+            <ul>
+                <li><strong>Innovation:</strong> Driving positive change through cutting-edge technology.</li>
+                <li><strong>Fairness:</strong> Ensuring equitable and unbiased loan decisions.</li>
+                <li><strong>User-Centricity:</strong> Prioritizing an intuitive and accessible user experience.</li>
+                <li><strong>Excellence:</strong> Committing to quality and continuous improvement in everything we do.</li>
+            </ul>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>

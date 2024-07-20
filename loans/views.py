@@ -19,6 +19,13 @@ def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
 
+def cibil_calculator(request):
+    return render(request, 'loans/cibil_calculator.html')
+
+
+def about_us(request):
+    return render(request, 'loans/about_us.html')
+
 
 
 

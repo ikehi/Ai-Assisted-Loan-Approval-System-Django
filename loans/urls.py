@@ -13,6 +13,8 @@ urlpatterns = [
     path('application/<int:application_id>/', views.view_application, name='view_application'), 
     path('logout/', logout_view, name='logout'),
     path('application/<int:pk>/', views.view_application, name='view_application'),
+    path('about-us/', views.about_us, name='about_us'),
+     path('cibil-calculator/', views.cibil_calculator, name='cibil_calculator'),
 ]
   
 
