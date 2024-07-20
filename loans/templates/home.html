@@ -9,13 +9,14 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('bg.jpg');
+            background-image: url('../static/images/bg.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
             color: white;
         }
 
+        
         a {
             color: gray;
             text-decoration: none;
@@ -46,6 +47,5 @@
     margin: 100px 0;
     font-family: Calisto MT;
     color:brown;
-    font-size:30px;"><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
-</body>
+    font-size:30px;"><a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p> 
 </html>

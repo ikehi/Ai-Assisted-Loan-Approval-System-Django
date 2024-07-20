@@ -7,9 +7,20 @@ from .models import Application
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm
+
+from .forms import StatusUpdateForm
 
 def home(request):
     return render(request,'home.html')
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'logout.html')
+
+
+
 
 @login_required
 def view_application(request, application_id):
@@ -25,9 +36,6 @@ def view_application(request, application_id):
         form = ApplicationForm(instance=application)
     return render(request, 'loans/view_application.html', {'form': form, 'application': application})
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import login, authenticate
 
 
 
@@ -35,8 +43,20 @@ from django.contrib.auth import login, authenticate
 def admin_dashboard(request):
     if not request.user.is_staff:
         return redirect('customer_dashboard')
+
+    if request.method == 'POST':
+        # Handle status update
+        application_id = request.POST.get('application_id')
+        application = get_object_or_404(Application, id=application_id)
+        form = StatusUpdateForm(request.POST, instance=application)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')
+    else:
+        form = StatusUpdateForm()  # Default form
+
     applications = Application.objects.all()
-    return render(request, 'loans/admin_dashboard.html', {'applications': applications})
+    return render(request, 'loans/admin_dashboard.html', {'applications': applications, 'form': form})
 
 @login_required
 def customer_dashboard(request):
@@ -81,7 +101,10 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('customer_dashboard')
+                if user.is_staff:
+                    return redirect('admin_dashboard')
+                else:
+                    return redirect('customer_dashboard')
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})

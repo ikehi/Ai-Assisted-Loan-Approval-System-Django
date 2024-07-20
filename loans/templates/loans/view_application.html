@@ -1,14 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>View Application</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- External CSS Links -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
+
+    <style>
+        /* Variables */
+        :root {
+            --border-radius: 10px;
+            --spacer: 1rem;
+            --primary: #C4151C;
+            --text: #fff;
+        }
+
+        body {
+            background: #000 url(https://unsplash.it/1600/1000/?random);
+            background-size: cover;
+            background-position: center;
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-bottom: 10px;
+        }
+
+        .field label {
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .field p {
+            margin: 0;
+            color: #000;
+        }
+
+        a {
+            display: inline-block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-    <h1>View Application</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update</button>
-    </form>
+    <div class="container">
+        <h1>View Application</h1>
+        <div class="field">
+            <label for="name">Name:</label>
+            <p>{{ application.name }}</p>
+        </div>
+        <div class="field">
+            <label for="age">Age:</label>
+            <p>{{ application.age }}</p>
+        </div>
+        <div class="field">
+            <label for="contact_no">Contact No:</label>
+            <p>{{ application.contact_no }}</p>
+        </div>
+        <div class="field">
+            <label for="city">City:</label>
+            <p>{{ application.city }}</p>
+        </div>
+        <div class="field">
+            <label for="cibil_score">CIBIL Score:</label>
+            <p>{{ application.cibil_score }}</p>
+        </div>
+        <div class="field">
+            <label for="income">Income:</label>
+            <p>{{ application.income }}</p>
+        </div>
+        <div class="field">
+            <label for="employment_status">Employment Status:</label>
+            <p>{{ application.employment_status }}</p>
+        </div>
+        <div class="field">
+            <label for="loan_term">Loan Term:</label>
+            <p>{{ application.loan_term }}</p>
+        </div>
+        <div class="field">
+            <label for="loan_amount">Loan Amount:</label>
+            <p>{{ application.loan_amount }}</p>
+        </div>
+        <div class="field">
+            <label for="residential_assets">Residential Assets:</label>
+            <p>{{ application.residential_assets }}</p>
+        </div>
+        <div class="field">
+            <label for="commercial_assets">Commercial Assets:</label>
+            <p>{{ application.commercial_assets }}</p>
+        </div>
+        <div class="field">
+            <label for="status">Status:</label>
+            <p>{{ application.get_status_display }}</p>
+        </div>
+        <div class="field">
+            <label for="application_date">Application Date:</label>
+            <p>{{ application.application_date }}</p>
+        </div>
+        <div class="field">
+            <label for="ml_prediction">ML Prediction:</label>
+            <p>{{ application.ml_prediction }}</p>
+        </div>
+        <a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
+    </div>
 </body>
 </html>
