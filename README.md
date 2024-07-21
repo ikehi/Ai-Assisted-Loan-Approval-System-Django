@@ -1,5 +1,7 @@
 # AI-Assisted Loan Approval System
 
+![Fintech Edition](fin.png)
+
 Welcome to the AI-Assisted Loan Approval System project! This repository contains the code and resources for a comprehensive loan management system developed as part of the HumanAize Hackathon Fintech Edition. The project leverages advanced AI techniques to streamline loan approval processes, aiming to enhance efficiency and accuracy in financial decision-making.
 
 ## Table of Contents
