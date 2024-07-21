@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/Pinnacle.png' %} ">
 
     <style>
         /* Variables */
@@ -159,7 +161,8 @@
 <body>
     <div class="header">  
         <div class="header__logo">
-            <strong>LOGO</strong>
+            {% load static %}
+            <img  class="lgo" src="{% static 'images/Pinnacle.png' %}" style="width: 80px;">
         </div>
         <nav class="navbar">
             <ul class="navbar__menu">
