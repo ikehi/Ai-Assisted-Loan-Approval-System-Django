@@ -1,19 +1,23 @@
-from django.shortcuts import render, redirect,get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Application
-from .forms import ApplicationForm
-from .forms import UserRegistrationForm
-from .models import Application
-from django.contrib.auth import login, authenticate
-from django.contrib.auth import login, authenticate
-from django.contrib.auth import logout
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from .models import Application
+from .forms import ApplicationForm, UserRegistrationForm, StatusUpdateForm
+import tensorflow as tf
+from sklearn.preprocessing import StandardScaler
+import numpy as np
+import joblib
 
-from .forms import StatusUpdateForm
+# Load your ANN model
+model_path = 'C:/Users/Harshal/OneDrive/ドキュメント/Loan_Management/Loan_Management/loans/ann_model.h5'
+model = tf.keras.models.load_model(model_path)
+
+scaler_path = 'C:/Users/Harshal/OneDrive/ドキュメント/Loan_Management/Loan_Management/loans/scaler.pkl'
+scaler = joblib.load(scaler_path)
 
 def home(request):
-    return render(request,'home.html')
-
+    return render(request, 'home.html')
 
 def logout_view(request):
     logout(request)
@@ -22,28 +26,77 @@ def logout_view(request):
 def cibil_calculator(request):
     return render(request, 'loans/cibil_calculator.html')
 
-
 def about_us(request):
     return render(request, 'loans/about_us.html')
-
-
-
-
 @login_required
 def view_application(request, application_id):
+    print("view_application function called")
     application = get_object_or_404(Application, id=application_id)
+
     if request.method == 'POST':
+        print('Entered')
         form = ApplicationForm(request.POST, instance=application)
         if form.is_valid():
             application = form.save(commit=False)
-            # Here you can add ML prediction logic and update the status accordingly
             application.save()
             return redirect('admin_dashboard')
     else:
+        print('else')
         form = ApplicationForm(instance=application)
-    return render(request, 'loans/view_application.html', {'form': form, 'application': application})
 
+    # Prepare input data for the model
+    input_data = np.array([[
+        application.no_of_dependents,
+        application.education,
+        application.employment_status,
+        application.income_annum,
+        application.loan_amount,
+        application.loan_term,
+        application.cibil_score,
+        application.residential_assets_value,
+        application.commercial_assets_value,
+        application.luxury_assets_value,
+        application.bank_asset_value
+    ]])
 
+    print("Input Data for Model Prediction:", input_data)
+
+    # Scale the input data
+    input_data_scaled = scaler.transform(input_data)
+    print("Scaled Input Data for Model Prediction:", input_data_scaled)
+
+    # Make a prediction
+    prediction = model.predict(input_data_scaled)
+
+    # Get the prediction confidence
+    prediction_confidence = prediction[0][0]  # Since model.predict returns a list of lists
+
+    # Assuming binary classification (0 or 1)
+    prediction_status = "Approved" if prediction_confidence < 0.5 else "Rejected"
+
+    # Calculate the confidence percentage
+    confidence_percentage = prediction_confidence * 100 if prediction_status == "Rejected" else (1 - prediction_confidence) * 100
+
+    # Create the prediction text
+    prediction_text = (
+        f"The prediction for applicant {application.name} by the ML model is {prediction_status} "
+        f"with {confidence_percentage:.2f}% confidence."
+    )
+
+    # Save the prediction text to the application
+    application.ml_prediction = prediction_text
+    print("Prediction:", prediction)
+    print("Prediction Confidence:", prediction_confidence)
+
+    application.save()
+
+    # Prepare context for rendering
+    context = {
+        'form': form,
+        'application': application,
+    }
+
+    return render(request, 'loans/view_application.html', context)
 
 
 @login_required
@@ -83,7 +136,6 @@ def apply_loan(request):
         form = ApplicationForm()
     return render(request, 'loans/apply_loan.html', {'form': form})
 
-
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -97,7 +149,6 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
-
 
 def login_view(request):
     if request.method == 'POST':

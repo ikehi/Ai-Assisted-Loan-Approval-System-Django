@@ -202,12 +202,12 @@
             <tbody>
                 {% for application in applications %}
                 <tr>
-                    <td>{{ application.user.username }}</td>
+                    <td>{{ application.name }}</td>
                     <td>{{ application.loan_amount }}</td>
                     <td>
                         {{ application.get_status_display }}
                         <!-- Add status update form -->
-                        <form method="post" style="display:inline;">
+                        <form method="Post" style="display:inline;">
                             {% csrf_token %}
                             <input type="hidden" name="application_id" value="{{ application.id }}">
                             {{ form.as_p }}
