@@ -24,7 +24,7 @@ This project is designed to automate the loan approval process using an Artifici
 ## Dataset
 The dataset used for training and testing the model is provided by YouData.ai. It includes various features related to loan applications, such as applicant demographics and financial information.
 
-[YouData.ai Dataset Link](#https://www.youdata.ai/yourdata/669ccea99a7e184abf439505)  
+[YouData.ai Dataset Link](#) https://www.youdata.ai/yourdata/669ccea99a7e184abf439505  
 
 ## Model
 The ANN model is trained to classify loan applications as either approved or rejected based on the provided dataset. The model is stored in an `.h5` file format for easy integration and deployment.
