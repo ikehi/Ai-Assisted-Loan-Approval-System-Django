@@ -10,10 +10,12 @@ import numpy as np
 import joblib
 
 # Load your ANN model
-model_path = 'C:/Users/Harshal/OneDrive/ドキュメント/Loan_Management/Loan_Management/loans/ann_model.h5'
+model_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-System-Django-main\loans\ann_model.h5'
+
 model = tf.keras.models.load_model(model_path)
 
-scaler_path = 'C:/Users/Harshal/OneDrive/ドキュメント/Loan_Management/Loan_Management/loans/scaler.pkl'
+scaler_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-System-Django-main\loans\scaler.pkl'
+
 scaler = joblib.load(scaler_path)
 
 def home(request):
