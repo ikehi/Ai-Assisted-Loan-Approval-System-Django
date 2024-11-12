@@ -11,11 +11,8 @@ import joblib
 
 # Load your ANN model
 model_path = "ann_model.h5"
-
 model = tf.keras.models.load_model(model_path)
-
 scaler_path = "scaler.pkl"
-
 scaler = joblib.load(scaler_path)
 
 
@@ -77,22 +74,28 @@ def view_application(request, application_id):
     prediction = model.predict(input_data_scaled)
 
     # Get the prediction confidence
-    # Since model.predict returns a list of lists
-    prediction_confidence = prediction[0][0]
+    prediction_confidence = prediction[0][0]  # Since model.predict returns a list of lists
 
     # Assuming binary classification (0 or 1)
     prediction_status = "Approved" if prediction_confidence < 0.5 else "Rejected"
 
     # Calculate the confidence percentage
-    confidence_percentage = prediction_confidence * \
-        100 if prediction_status == "Rejected" else (
-            1 - prediction_confidence) * 100
+    confidence_percentage = prediction_confidence * 100 if prediction_status == "Rejected" else (
+                                                                                                            1 - prediction_confidence) * 100
+
+    # Generate explanation if the loan is rejected
+    explanation = ""
+    if prediction_status == "Rejected":
+        explanation = generate_explanation(application)
 
     # Create the prediction text
     prediction_text = (
         f"The prediction for applicant {application.name} by the ML model is {prediction_status} "
         f"with {confidence_percentage:.2f}% confidence."
     )
+
+    if explanation:
+        prediction_text += f" ...Reasons: {explanation}"
 
     # Save the prediction text to the application
     application.ml_prediction = prediction_text
@@ -108,6 +111,28 @@ def view_application(request, application_id):
     }
 
     return render(request, 'loans/view_application.html', context)
+
+
+def generate_explanation(application):
+    explanations = []
+
+    # Rule: Low credit score
+    if application.cibil_score < 600:
+        explanations.append("The credit score is below the required threshold.")
+
+    # Rule: Insufficient income
+    if application.income_annum < 30000:
+        explanations.append("The annual income is insufficient for the requested loan amount.")
+
+    # Rule: Unstable employment status (0 for not employed)
+    if application.employment_status == 0:
+        explanations.append("The employment status is not stable enough for loan approval.")
+
+    # Combine explanations
+    if explanations:
+        return "The loan application was rejected due to the following reasons: " + " ".join(explanations)
+    else:
+        return "The loan application was approved."
 
 
 @login_required

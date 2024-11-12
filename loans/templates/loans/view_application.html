@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.css">
     {% load static %}
-    <link rel="icon" type="image/png" href="Pinnacle.png ">
+    <link rel="icon" type="image/png" href="{% static 'images/Pinnacle.png' %} ">
 
     <style>
         /* Variables */
@@ -76,6 +76,25 @@
             background-color: #45a049;
         }
     </style>
+
+    <!-- Script to simulate AI typing -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const explanation = "{{ application.ml_prediction|escapejs }}";
+            const explanationElement = document.getElementById("ai-explanation");
+            let index = 0;
+
+            function typeEffect() {
+                if (index < explanation.length) {
+                    explanationElement.innerHTML += explanation.charAt(index);
+                    index++;
+                    setTimeout(typeEffect, 50); // Adjust the speed here
+                }
+            }
+
+            typeEffect();
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -146,7 +165,7 @@
         </div>
         <div class="field">
             <label for="ml_prediction">ML Prediction:</label>
-            <p>{{ application.ml_prediction }}</p>
+            <p id="ai-explanation"></p> <!-- AI typing effect applied here -->
         </div>
         <a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
     </div>
