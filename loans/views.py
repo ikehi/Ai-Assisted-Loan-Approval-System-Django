@@ -10,26 +10,32 @@ import numpy as np
 import joblib
 
 # Load your ANN model
-model_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-System-Django-main\loans\ann_model.h5'
+model_path = r'C:\Users\user\Desktop\Ai-Assisted-Loan-Approval-System-Django\loans\ann_model.h5'
 
 model = tf.keras.models.load_model(model_path)
 
-scaler_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-System-Django-main\loans\scaler.pkl'
+scaler_path = r'C:\Users\user\Desktop\Ai-Assisted-Loan-Approval-System-Django\loans\scaler.pkl'
 
 scaler = joblib.load(scaler_path)
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 def logout_view(request):
     logout(request)
     return render(request, 'logout.html')
 
+
 def cibil_calculator(request):
     return render(request, 'loans/cibil_calculator.html')
 
+
 def about_us(request):
     return render(request, 'loans/about_us.html')
+
+
 @login_required
 def view_application(request, application_id):
     print("view_application function called")
@@ -71,13 +77,16 @@ def view_application(request, application_id):
     prediction = model.predict(input_data_scaled)
 
     # Get the prediction confidence
-    prediction_confidence = prediction[0][0]  # Since model.predict returns a list of lists
+    # Since model.predict returns a list of lists
+    prediction_confidence = prediction[0][0]
 
     # Assuming binary classification (0 or 1)
     prediction_status = "Approved" if prediction_confidence < 0.5 else "Rejected"
 
     # Calculate the confidence percentage
-    confidence_percentage = prediction_confidence * 100 if prediction_status == "Rejected" else (1 - prediction_confidence) * 100
+    confidence_percentage = prediction_confidence * \
+        100 if prediction_status == "Rejected" else (
+            1 - prediction_confidence) * 100
 
     # Create the prediction text
     prediction_text = (
@@ -120,10 +129,12 @@ def admin_dashboard(request):
     applications = Application.objects.all()
     return render(request, 'loans/admin_dashboard.html', {'applications': applications, 'form': form})
 
+
 @login_required
 def customer_dashboard(request):
     applications = Application.objects.filter(user=request.user)
     return render(request, 'loans/customer_dashboard.html', {'applications': applications})
+
 
 @login_required
 def apply_loan(request):
@@ -138,6 +149,7 @@ def apply_loan(request):
         form = ApplicationForm()
     return render(request, 'loans/apply_loan.html', {'form': form})
 
+
 def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
@@ -151,6 +163,7 @@ def register(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
+
 
 def login_view(request):
     if request.method == 'POST':
