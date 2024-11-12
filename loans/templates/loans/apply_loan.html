@@ -1,81 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <title>Loan Application</title>
     {% load static %}
-    <link rel="icon" type="image/png" href="{% static 'images/Pinnacle.png' %} ">
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'images/Pinnacle.png' %} "
+    />
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-image: url('https://unsplash.it/1600/1000/?random'); /* Replace with your desired image */
-            background-size: cover;
-            background-position: center;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
+      /* Overall body styling */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #fff; /* Clean white background */
+        color: #333;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        min-height: 100vh; /* Ensures body takes full height */
+        overflow-x: hidden; /* Disables horizontal scroll, allows vertical scroll */
+      }
 
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-           margin-top: 0px;
-            background-color: #333;
-            padding: 20px;
-        }
+      h1 {
+        text-align: center;
+        margin-top: 0;
+        padding: 20px;
+        font-size: 2.5rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, #4caf50, #8bc34a, #4caf50);
+        background-size: 200%;
+        color: #fff;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: gradientShift 3s ease-in-out infinite;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
 
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      /* Gradient animation for the heading */
+      @keyframes gradientShift {
+        0% {
+          background-position: 0%;
         }
+        50% {
+          background-position: 100%;
+        }
+        100% {
+          background-position: 0%;
+        }
+      }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-        }
+      /* Animation for the floating balls */
+      .animation-container {
+        position: absolute;
+        top: 40%; /* Adjust position so it’s visible */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 0;
+      }
 
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+      .ball {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: #4caf50;
+        border-radius: 50%;
+        animation: float 4s ease-in-out infinite;
+        opacity: 0.6;
+      }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+      .ball1 {
+        top: -680px;
+        left: -480px;
+        animation-delay: 0s;
+      }
+      .ball2 {
+        bottom: -1280px;
+        right: -480px;
+        animation-delay: 2s;
+      }
 
-        button:hover {
-            background-color: #45a049;
+      @keyframes float {
+        0% {
+          transform: translateY(0) scale(1);
         }
+        50% {
+          transform: translateY(-20px) scale(1.1);
+        }
+        100% {
+          transform: translateY(0) scale(1);
+        }
+      }
+      /* Form Styling */
+      form {
+        max-width: 800px; /* Increased width */
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #fff; /* Clean white background */
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
 
-        .errorlist {
-            color: red;
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-        }
+      form:hover {
+        transform: scale(1.02);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        background-color: #f9f9f9;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #4caf50;
+        background-color: #e8f5e9;
+        outline: none;
+      }
+
+      button {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+        transform: scale(1.05);
+      }
+
+      button:active {
+        background-color: #388e3c;
+        transform: scale(1);
+      }
+
+      .errorlist {
+        color: red;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: #aaa;
+        font-style: italic;
+      }
+
+      input,
+      select,
+      textarea {
+        border-radius: 8px;
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      /* Subtle animation on form inputs */
+      input,
+      select,
+      textarea {
+        transition: transform 0.3s ease, border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        transform: scale(1.02);
+      }
     </style>
-</head>
-<body>
+  </head>
+
+  <body>
     <h1>Loan Application</h1>
-    <form method="post"  enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+    <div class="animation-container">
+      <div class="ball ball1"></div>
+      <div class="ball ball2"></div>
+    </div>
+    <form method="post" enctype="multipart/form-data" class="loan-form">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="submit-btn">Submit</button>
     </form>
-</body>
+  </body>
 </html>

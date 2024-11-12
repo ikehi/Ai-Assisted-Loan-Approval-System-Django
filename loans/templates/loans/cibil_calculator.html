@@ -12,202 +12,183 @@
     {% load static %}
     <link rel="icon" type="image/png" href="{% static 'images/Pinnacle.png' %} ">
 
-    <style>
-        /* Variables */
-        :root {
-            --border-radius: 10px;
-            --spacer: 1rem;
-            --primary: #C4151C;
-            --text: #fff;
-            --link-height: calc(var(--spacer) * 3.5);
-            --timing: 250ms;
-            --transition: var(--timing) ease all;
-            --link-width: 10rem;
-        }
+   <style>
+    /* Variables */
+    :root {
+        --primary-color: #4CAF50;
+        --background-color: #f5f5f5;
+        --text-color: #333;
+        --sidebar-bg: #1d1d1d;
+        --card-bg: #ffffff;
+        --input-bg: #f0f0f0;
+        --border-radius: 8px;
+    }
 
-        body {
-            background: #000 url(https://unsplash.it/1600/1000/?random);
-            background-size: cover;
-            background-position: center;
-            font-family: 'Open Sans', sans-serif;
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-        }
+    body {
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        background-color: var(--background-color);
+        color: var(--text-color);
+        display: flex;
+    }
 
-        .header {
-            position: sticky;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 0 calc(var(--spacer) * 2);
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.03);
-            height: 6rem;
-            display: flex;
-            align-items: center;
-            gap: 2rem; /* Increased gap for distance between items */
-        }
+    /* Sidebar Styling */
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: var(--sidebar-bg);
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+    }
 
-        .navbar {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            margin: 0 auto;
-            overflow: hidden;
-        }
+    .sidebar__logo {
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-        .navbar__menu {
-            position: relative;
-            display: flex;
-            list-style: none;
-        }
+    .sidebar__menu {
+        list-style-type: none;
+        padding: 0;
+    }
 
-        .navbar__link {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-            align-items: center;
-            justify-content: center;
-            height: var(--link-height);
-            width: var(--link-width);
-            color: var(--text);
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: 500ms ease all;
-        }
+    .sidebar__item {
+        margin-bottom: 20px;
+    }
 
-        .navbar__link svg {
-            transition: 500ms ease all;
-        }
+    .sidebar__link {
+        text-decoration: none;
+        color: #ddd;
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border-radius: 8px;
+        transition: background-color 0.3s;
+    }
 
-        .navbar__link:hover svg {
-            stroke: var(--primary);
-        }
+    .sidebar__link:hover {
+        background-color: var(--primary-color);
+        color: #fff;
+    }
 
-        .navbar__item {
-            margin-left: 10px;
-            position: relative;
-        }
+    .sidebar__link i {
+        margin-left: 10px;
+    }
 
-        .navbar__item:last-child:before {
-            content: '';
-            position: absolute;
-            left: -8rem;
-            margin-left: calc(var(--link-width) / 2);
-            bottom: -1.25rem;
-            height: 0.5rem;
-            width: 2px;
-            background: var(--primary);
-            transition: 500ms ease all;
-        }
+    /* Main Content Styling */
+    .main-content {
+        margin-left: 300px;
+        padding: 40px;
+        width: calc(100% - 250px);
+    }
 
-        /* Styles for the Calculator Page */
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-            margin-top: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            color: black;
-        }
+    h1 {
+        text-align: center;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
 
-        h1 {
-            text-align: center;
-            color: #4CAF50;
-            margin-top: 20px;
-        }
+    /* CIBIL Calculator Form Styling */
+    .calculator-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: var(--card-bg);
+        padding: 20px;
+        border-radius: var(--border-radius);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-        label {
-            display: block;
-            margin: 10px 0 5px;
-        }
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
 
-        input {
-            width: calc(100% - 22px);
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
-        }
+    input {
+        width: 90%;
+        padding: 19px;
+        margin-bottom: 20px;
+        background-color: var(--input-bg);
+        border: 1px solid #ddd;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+    }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            font-size: 1rem;
-        }
+    button {
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
 
-        button:hover {
-            background-color: #45a049;
-        }
+    button:hover {
+        background-color: #3d8b44;
+    }
 
-        .result {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #333;
-            text-align: center;
-        }
-    </style>
-</head>
+    .result {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: var(--text-color);
+        text-align: center;
+    }
+</style>
+
 <body>
-    <div class="header">  
-        <div class="header__logo">
-            {% load static %}
-            <img  class="lgo" src="{% static 'images/Pinnacle.png' %}" style="width: 80px;">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar__logo">
+            <img src="{% static 'images/Pinnacle.png' %}" alt="Logo" style="width: 150px;">
         </div>
-        <nav class="navbar">
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="{% url 'apply_loan' %}" class="navbar__link"><i data-feather="file-text"></i><span>Apply for Loan</span> </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="{% url 'customer_dashboard' %}" class="navbar__link"><i data-feather="list"></i><span>Applications</span></a>        
-                </li>
-                <li class="navbar__item">
-                    <a href="{% url 'logout' %}" class="navbar__link"><i data-feather="home"></i><span>Home</span></a>        
-                </li>
-                <li class="navbar__item">
-                    <a href="https://github.com/HARSHGit45/Ai-Assisted-Loan-Approval-System-Django" class="navbar__link"><i data-feather="github"></i><span>GitHub</span></a>        
-                </li>
-                <li class="navbar__item">
-                    <a href="{% url 'cibil_calculator' %}" class="navbar__link"><i data-feather="plus"></i><span>CIBIL Calculator</span></a>
-                </li>
-            </ul>
-        </nav>
+        <ul class="sidebar__menu">
+            <li class="sidebar__item">
+                <a href="{% url 'apply_loan' %}" class="sidebar__link"><i data-feather="file-text"></i> Apply for Loan</a>
+            </li>
+            <li class="sidebar__item">
+                <a href="{% url 'customer_dashboard' %}" class="sidebar__link"><i data-feather="list"></i> Applications</a>
+            </li>
+            <li class="sidebar__item">
+                <a href="{% url 'logout' %}" class="sidebar__link"><i data-feather="home"></i> Home</a>
+            </li>
+            <li class="sidebar__item">
+                <a href="{% url 'cibil_calculator' %}" class="sidebar__link"><i data-feather="plus"></i> CIBIL Calculator</a>
+            </li>
+        </ul>
     </div>
-    
-    <div class="container" id="cibilCalculator">
+
+    <!-- Main Content -->
+    <div class="main-content">
         <h1>CIBIL Score Calculator</h1>
-        <label for="creditHistory">Credit History (months)</label>
-        <input type="number" id="creditHistory" placeholder="Enter your credit history">
+        <div class="calculator-container" id="cibilCalculator">
+            <label for="creditHistory">Credit History (months)</label>
+            <input type="number" id="creditHistory" placeholder="Enter your credit history">
 
-        <label for="loanAmount">Loan Amount</label>
-        <input type="number" id="loanAmount" placeholder="Enter your loan amount">
+            <label for="loanAmount">Loan Amount</label>
+            <input type="number" id="loanAmount" placeholder="Enter your loan amount">
 
-        <label for="income">Monthly Income</label>
-        <input type="number" id="income" placeholder="Enter your monthly income">
+            <label for="income">Monthly Income</label>
+            <input type="number" id="income" placeholder="Enter your monthly income">
 
-        <label for="existingLoans">Existing Loans</label>
-        <input type="number" id="existingLoans" placeholder="Enter your existing loans">
+            <label for="existingLoans">Existing Loans</label>
+            <input type="number" id="existingLoans" placeholder="Enter your existing loans">
 
-        <button onclick="calculateCIBIL()">Calculate CIBIL Score</button>
+            <button onclick="calculateCIBIL()">Calculate CIBIL Score</button>
 
-        <div class="result" id="result"></div>
+            <div class="result" id="result"></div>
+        </div>
     </div>
 
     <!-- Feather Icons -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"></script>
     <script>
-        feather.replace(); // Initialize Feather Icons
+        feather.replace();
 
         function calculateCIBIL() {
             const creditHistory = parseFloat(document.getElementById('creditHistory').value) || 0;
@@ -215,12 +196,9 @@
             const income = parseFloat(document.getElementById('income').value) || 0;
             const existingLoans = parseFloat(document.getElementById('existingLoans').value) || 0;
 
-            // Basic mock-up calculation for CIBIL Score
             let score = 300 + (creditHistory / 2) + (income / 1000) - (existingLoans / 1000) + (loanAmount / 10000);
 
-            if (score > 900) score = 900;  // CIBIL scores are between 300 and 900
-            if (score < 300) score = 300;
-
+            score = Math.min(900, Math.max(300, score));
             document.getElementById('result').innerText = `Your CIBIL Score is: ${Math.round(score)}`;
         }
     </script>
