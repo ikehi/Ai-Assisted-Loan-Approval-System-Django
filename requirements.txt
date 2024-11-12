@@ -4,3 +4,4 @@ tensorflow==2.13.0            # Used to load and run the ANN model
 scikit-learn==1.3.0           # Used for scaling input data
 numpy==1.23.5                 # Used for handling numerical data
 joblib==1.3.1                 # For loading the scaler object
+gunicorn==21.1.0  # For running Django in a production environment
