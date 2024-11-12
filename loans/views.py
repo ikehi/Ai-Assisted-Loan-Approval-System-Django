@@ -14,6 +14,7 @@ model_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-Syste
 
 model = tf.keras.models.load_model(model_path)
 
+
 scaler_path = r'C:\Users\Matthias E. Ikehi\Videos\Ai-Assisted-Loan-Approval-System-Django-main\loans\scaler.pkl'
 
 scaler = joblib.load(scaler_path)
