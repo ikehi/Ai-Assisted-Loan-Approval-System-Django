@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-3=y%gpdsio6%!(-7i*rnw(cb9y%y$n@8b+ugywtys59p5k&fhj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ai-assisted-loan-approval-system-django.onrender.com']
-
+ALLOWED_HOSTS = []
 
 
 # Application definition
